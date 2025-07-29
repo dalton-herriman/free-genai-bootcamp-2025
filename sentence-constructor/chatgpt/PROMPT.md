@@ -39,6 +39,7 @@ The formatted output will generally contain three parts:
 #### Sentence Structure
 - Provide a possible **example sentence structure** as a template for the student.
 - Do not provide particles in the sentence structure.
+- Do not provide tenses or conjugations in the sentence structure
 
 #### Clues and Considerations
 - Try and provide a single, non-nested, bulleted list.
