@@ -79,3 +79,6 @@ What is your attempt at translating the first part of the sentence?
 
 
 ---
+
+## This request/query's input (answer this):
+There was a raven in my garden this morning.
