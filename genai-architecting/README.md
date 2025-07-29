@@ -43,3 +43,19 @@
 - **Regular Compliance Reviews:** Periodic audits will be conducted to ensure that all content in the database remains compliant with copyright and licensing requirements. Any unlicensed or questionable materials will be removed immediately.
 - **Data Privacy:** Student-generated data (e.g., answers, activity logs) will be stored separately from licensed content and will not be shared externally. All data handling will comply with privacy regulations and internal policies.
 
+## Technical Considerations
+- **Model Selection:** We are considering using IBM Granite as the foundational LLM for our on-premises deployment. IBM Granite is designed for enterprise use, with a strong focus on data privacy, security, and compliance—key requirements for our educational environment in Nagasaki.
+    - **On-Premises Support:** IBM Granite offers robust support for on-premises deployment, allowing us to run the model entirely within our local infrastructure without reliance on external cloud services. This aligns with our strict data privacy and security requirements.
+    - **Performance and Efficiency:** Granite models are optimized for efficient inference on modern GPU hardware, making them suitable for our planned AI PC/workstation investment. This ensures we can deliver low-latency responses to 300 concurrent users.
+    - **Customization and Fine-Tuning:** IBM Granite supports domain-specific customization and fine-tuning, enabling us to adapt the model to our educational content and use cases while maintaining control over our data.
+    - **Compliance and Governance:** IBM’s enterprise AI offerings are built with compliance in mind, supporting features such as audit logging, access controls, and explainability. This helps us meet regulatory and internal policy requirements.
+    - **Guardrail Integration:** Granite provides built-in mechanisms and APIs for implementing input/output guardrails, which is essential for filtering inappropriate content and ensuring safe interactions for students.
+    - **Vendor Support and Documentation:** IBM offers comprehensive documentation and enterprise support, reducing operational risk and supporting our team as we deploy and maintain the system.
+    - **Copyright and Content Licensing:** IBM Granite is particularly strong in addressing copyright concerns:
+        - **Training Data Transparency:** IBM provides clear documentation about the data sources used to train Granite models, with a focus on using licensed, non-copyright-infringing, or publicly available data. This reduces the risk of the model generating content that could violate third-party copyrights.
+        - **Enterprise-Grade Indemnification:** IBM offers legal assurances and indemnification for enterprise customers, helping protect the organization from potential copyright claims related to model outputs.
+        - **Content Filtering:** Granite includes features for filtering and controlling generated content, allowing us to enforce strict compliance with our licensed content policies and prevent the generation or distribution of unlicensed or infringing material.
+        - **Auditability:** The platform supports audit trails and logging, making it easier to demonstrate compliance with copyright and licensing requirements during reviews or audits.
+- **Alternative Models:** While open-source LLMs (e.g., Llama, Mistral) are also under consideration, IBM Granite’s enterprise features, copyright safeguards, and support for on-premises, privacy-focused deployments make it a strong candidate for our needs.
+- **Ongoing Evaluation:** We will continue to evaluate IBM Granite and other models for compatibility, performance, copyright compliance, and cost-effectiveness as our requirements evolve.
+
