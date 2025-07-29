@@ -28,6 +28,7 @@ Your response should include:
 2. **Sentence Structure Template**  
     - Provide a possible template for the sentence  
     - Do not include particles, tenses, or conjugations
+    - Reference the <file>sentence-structure-examples.xml</file>
 
 3. **Clues and Considerations**  
     - A single, non-nested bulleted list  
