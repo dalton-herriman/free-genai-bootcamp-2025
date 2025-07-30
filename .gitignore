@@ -1,3 +1,146 @@
 codealike.json
 *.bkp
 .cursor/
+# ---- Python backend (Flask) ----
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# PyInstaller
+#  Usually these files are written by a python script from a template
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pyenv
+
+# Electron frontend dependencies and build output
+electron-front-end/node_modules/
+electron-front-end/dist/
+electron-front-end/build/
+electron-front-end/out/
+electron-front-end/release/
+electron-front-end/*.log
+electron-front-end/package-lock.json
+electron-front-end/yarn.lock
+electron-front-end/.pnpm-debug.log
+.python-version
+# Flask backend dependencies and environment
+backend-flask/__pycache__/
+backend-flask/.env
+backend-flask/instance/
+backend-flask/.venv/
+backend-flask/venv/
+backend-flask/ENV/
+backend-flask/env/
+backend-flask/*.sqlite3
+backend-flask/*.db
+backend-flask/.mypy_cache/
+backend-flask/.pytest_cache/
+backend-flask/.coverage
+backend-flask/.coverage.*
+backend-flask/.cache
+backend-flask/coverage.xml
+backend-flask/htmlcov/
+backend-flask/.hypothesis/
+backend-flask/nosetests.xml
+backend-flask/.dmypy.json
+backend-flask/dmypy.json
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Flask specific
+instance/
+.env
+.venv
+venv/
+ENV/
+env/
+*.sqlite3
+*.db
+
+# VS Code
+.vscode/
+
+# ---- Electron front end ----
+# Node modules
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json
+yarn.lock
+.pnpm-debug.log
+
+# Build output
+dist/
+build/
+out/
+release/
+*.log
+
+# Electron
+*.asar
+
+# OS generated files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Icon?
+Desktop.ini
+
+# IDEs
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Misc
+*.bak
+*.tmp
+*.swp
+*.swo
+# End of file

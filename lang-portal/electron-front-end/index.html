@@ -1,9 +1,120 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>My Electron App</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Language Learning Portal</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h1>Hello, Electron!</h1>
+  <div class="app-container">
+    <!-- Navigation Sidebar -->
+    <nav class="sidebar">
+      <div class="sidebar-header">
+        <h2>Language Portal</h2>
+      </div>
+      <ul class="nav-menu">
+        <li><a href="#dashboard" class="nav-link active" data-section="dashboard">Dashboard</a></li>
+        <li><a href="#words" class="nav-link" data-section="words">Words</a></li>
+        <li><a href="#groups" class="nav-link" data-section="groups">Groups</a></li>
+        <li><a href="#study-sessions" class="nav-link" data-section="study-sessions">Study Sessions</a></li>
+        <li><a href="#study-activities" class="nav-link" data-section="study-activities">Study Activities</a></li>
+      </ul>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <!-- Dashboard Section -->
+      <section id="dashboard" class="content-section active">
+        <h1>Dashboard</h1>
+        <div class="dashboard-grid">
+          <div class="stats-card">
+            <h3>Study Statistics</h3>
+            <div id="stats-content" class="stats-content">
+              <div class="loading">Loading statistics...</div>
+            </div>
+          </div>
+          <div class="stats-card">
+            <h3>Recent Session</h3>
+            <div id="recent-session-content" class="recent-session-content">
+              <div class="loading">Loading recent session...</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Words Section -->
+      <section id="words" class="content-section">
+        <h1>Words</h1>
+        <div class="controls">
+          <div class="search-box">
+            <input type="text" id="word-search" placeholder="Search words...">
+          </div>
+          <div class="pagination-controls">
+            <button id="prev-page" class="btn">Previous</button>
+            <span id="page-info">Page 1</span>
+            <button id="next-page" class="btn">Next</button>
+          </div>
+        </div>
+        <div id="words-content" class="words-content">
+          <div class="loading">Loading words...</div>
+        </div>
+      </section>
+
+      <!-- Groups Section -->
+      <section id="groups" class="content-section">
+        <h1>Groups</h1>
+        <div class="controls">
+          <div class="pagination-controls">
+            <button id="groups-prev-page" class="btn">Previous</button>
+            <span id="groups-page-info">Page 1</span>
+            <button id="groups-next-page" class="btn">Next</button>
+          </div>
+        </div>
+        <div id="groups-content" class="groups-content">
+          <div class="loading">Loading groups...</div>
+        </div>
+      </section>
+
+      <!-- Study Sessions Section -->
+      <section id="study-sessions" class="content-section">
+        <h1>Study Sessions</h1>
+        <div class="controls">
+          <button id="create-session-btn" class="btn btn-primary">Create New Session</button>
+          <div class="pagination-controls">
+            <button id="sessions-prev-page" class="btn">Previous</button>
+            <span id="sessions-page-info">Page 1</span>
+            <button id="sessions-next-page" class="btn">Next</button>
+          </div>
+        </div>
+        <div id="study-sessions-content" class="study-sessions-content">
+          <div class="loading">Loading study sessions...</div>
+        </div>
+      </section>
+
+      <!-- Study Activities Section -->
+      <section id="study-activities" class="content-section">
+        <h1>Study Activities</h1>
+        <div id="study-activities-content" class="study-activities-content">
+          <div class="loading">Loading study activities...</div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Modals -->
+  <div id="modal-overlay" class="modal-overlay hidden">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 id="modal-title">Modal Title</h3>
+        <button class="modal-close" id="modal-close">&times;</button>
+      </div>
+      <div class="modal-body" id="modal-body">
+        <!-- Modal content will be inserted here -->
+      </div>
+    </div>
+  </div>
+
+  <script src="renderer.js"></script>
 </body>
 </html>
