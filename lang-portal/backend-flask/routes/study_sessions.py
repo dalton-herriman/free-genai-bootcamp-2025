@@ -223,7 +223,68 @@ def load(app):
     except Exception as e:
       return jsonify({"error": str(e)}), 500
 
-  # todo POST /study_sessions/:id/review
+  @app.route('/api/study-sessions/<int:id>/review', methods=['POST'])
+  @cross_origin()
+  def submit_study_session_review(id):
+    try:
+      cursor = app.db.cursor()
+      
+      # Get request data
+      data = request.get_json()
+      
+      if not data:
+        return jsonify({"error": "Request body is required"}), 400
+      
+      reviews = data.get('reviews', [])
+      
+      if not reviews:
+        return jsonify({"error": "reviews array is required"}), 400
+      
+      # Validate that the study session exists
+      cursor.execute('SELECT id FROM study_sessions WHERE id = ?', (id,))
+      session = cursor.fetchone()
+      if not session:
+        return jsonify({"error": "Study session not found"}), 404
+      
+      # Validate and insert each review
+      inserted_reviews = []
+      for review in reviews:
+        word_id = review.get('word_id')
+        correct = review.get('correct')
+        
+        if word_id is None:
+          return jsonify({"error": "word_id is required for each review"}), 400
+        
+        if correct is None:
+          return jsonify({"error": "correct is required for each review"}), 400
+        
+        # Validate that the word exists
+        cursor.execute('SELECT id FROM words WHERE id = ?', (word_id,))
+        word = cursor.fetchone()
+        if not word:
+          return jsonify({"error": f"Word with id {word_id} not found"}), 404
+        
+        # Insert the review item
+        cursor.execute('''
+          INSERT INTO word_review_items (word_id, study_session_id, correct, created_at)
+          VALUES (?, ?, ?, CURRENT_TIMESTAMP)
+        ''', (word_id, id, correct))
+        
+        inserted_reviews.append({
+          'word_id': word_id,
+          'correct': correct,
+          'id': cursor.lastrowid
+        })
+      
+      app.db.commit()
+      
+      return jsonify({
+        'message': f'Successfully submitted {len(inserted_reviews)} reviews',
+        'reviews': inserted_reviews
+      }), 201
+      
+    except Exception as e:
+      return jsonify({"error": str(e)}), 500
 
   @app.route('/api/study-sessions/reset', methods=['POST'])
   @cross_origin()

@@ -155,7 +155,42 @@ def load(app):
     except Exception as e:
       return jsonify({"error": str(e)}), 500
 
-  # todo GET /groups/:id/words/raw
+  @app.route('/groups/<int:id>/words/raw', methods=['GET'])
+  @cross_origin()
+  def get_group_words_raw(id):
+    try:
+      cursor = app.db.cursor()
+      
+      # Validate that the group exists
+      cursor.execute('SELECT id, name FROM groups WHERE id = ?', (id,))
+      group = cursor.fetchone()
+      if not group:
+        return jsonify({"error": "Group not found"}), 404
+      
+      # Get all words for this group without pagination
+      cursor.execute('''
+        SELECT id, kanji, romaji, english
+        FROM words
+        WHERE group_id = ?
+        ORDER BY kanji
+      ''', (id,))
+      
+      words = cursor.fetchall()
+      
+      return jsonify({
+        'group_id': group['id'],
+        'group_name': group['name'],
+        'words': [{
+          'id': word['id'],
+          'kanji': word['kanji'],
+          'romaji': word['romaji'],
+          'english': word['english']
+        } for word in words],
+        'total_count': len(words)
+      })
+      
+    except Exception as e:
+      return jsonify({"error": str(e)}), 500
 
   @app.route('/groups/<int:id>/study_sessions', methods=['GET'])
   @cross_origin()
