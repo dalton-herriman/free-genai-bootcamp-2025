@@ -4,7 +4,79 @@ from datetime import datetime
 import math
 
 def load(app):
-  # todo /study_sessions POST
+  @app.route('/api/study-sessions', methods=['POST'])
+  @cross_origin()
+  def create_study_session():
+    try:
+      cursor = app.db.cursor()
+      
+      # Get request data
+      data = request.get_json()
+      
+      if not data:
+        return jsonify({"error": "Request body is required"}), 400
+      
+      group_id = data.get('group_id')
+      study_activity_id = data.get('study_activity_id')
+      
+      # Validate required fields
+      if not group_id:
+        return jsonify({"error": "group_id is required"}), 400
+      
+      if not study_activity_id:
+        return jsonify({"error": "study_activity_id is required"}), 400
+      
+      # Validate that the group exists
+      cursor.execute('SELECT id FROM groups WHERE id = ?', (group_id,))
+      group = cursor.fetchone()
+      if not group:
+        return jsonify({"error": "Group not found"}), 404
+      
+      # Validate that the study activity exists
+      cursor.execute('SELECT id FROM study_activities WHERE id = ?', (study_activity_id,))
+      activity = cursor.fetchone()
+      if not activity:
+        return jsonify({"error": "Study activity not found"}), 404
+      
+      # Create the study session
+      cursor.execute('''
+        INSERT INTO study_sessions (group_id, study_activity_id, created_at)
+        VALUES (?, ?, CURRENT_TIMESTAMP)
+      ''', (group_id, study_activity_id))
+      
+      session_id = cursor.lastrowid
+      app.db.commit()
+      
+      # Get the created session with details
+      cursor.execute('''
+        SELECT 
+          ss.id,
+          ss.group_id,
+          g.name as group_name,
+          sa.id as activity_id,
+          sa.name as activity_name,
+          ss.created_at
+        FROM study_sessions ss
+        JOIN groups g ON g.id = ss.group_id
+        JOIN study_activities sa ON sa.id = ss.study_activity_id
+        WHERE ss.id = ?
+      ''', (session_id,))
+      
+      session = cursor.fetchone()
+      
+      return jsonify({
+        'id': session['id'],
+        'group_id': session['group_id'],
+        'group_name': session['group_name'],
+        'activity_id': session['activity_id'],
+        'activity_name': session['activity_name'],
+        'start_time': session['created_at'],
+        'end_time': session['created_at'],  # For now, just use the same time
+        'review_items_count': 0  # New session has no review items yet
+      }), 201
+      
+    except Exception as e:
+      return jsonify({"error": str(e)}), 500
 
   @app.route('/api/study-sessions', methods=['GET'])
   @cross_origin()
